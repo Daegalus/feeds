@@ -165,6 +165,13 @@ func (f *JSON) JSONFeed() *JSONFeed {
 	for _, e := range f.Items {
 		feed.Items = append(feed.Items, newJSONItem(e))
 	}
+
+	if f.Generator != "" {
+		feed.Extensions = append(feed.Extensions, &JSONExtensions{
+			Key:   "generator",
+			Value: f.Generator,
+		})
+	}
 	return feed
 }
 
