@@ -92,24 +92,31 @@ type JSONHub struct {
 	Url  string `json:"url"`
 }
 
+// JSONExtensions represents the extensions for the feed
+type JSONExtensions struct {
+	Key   string
+	Value string
+}
+
 // JSONFeed represents a syndication feed in the JSON Feed Version 1 format.
 // Matching the specification found here: https://jsonfeed.org/version/1.
 type JSONFeed struct {
-	Version     string        `json:"version"`
-	Title       string        `json:"title"`
-	HomePageUrl string        `json:"home_page_url,omitempty"`
-	FeedUrl     string        `json:"feed_url,omitempty"`
-	Description string        `json:"description,omitempty"`
-	UserComment string        `json:"user_comment,omitempty"`
-	NextUrl     string        `json:"next_url,omitempty"`
-	Icon        string        `json:"icon,omitempty"`
-	Favicon     string        `json:"favicon,omitempty"`
-	Author      *JSONAuthor   `json:"author,omitempty"` // Deprecated, keep for compatibility
-	Authors     []*JSONAuthor `json:"authors,omitempty"`
-	Language    string        `json:"language,omitempty"`
-	Expired     bool          `json:"expired,omitempty"`
-	Hubs        []*JSONHub    `json:"hubs,omitempty"`
-	Items       []*JSONItem   `json:"items,omitempty"`
+	Version     string            `json:"version"`
+	Title       string            `json:"title"`
+	HomePageUrl string            `json:"home_page_url,omitempty"`
+	FeedUrl     string            `json:"feed_url,omitempty"`
+	Description string            `json:"description,omitempty"`
+	UserComment string            `json:"user_comment,omitempty"`
+	NextUrl     string            `json:"next_url,omitempty"`
+	Icon        string            `json:"icon,omitempty"`
+	Favicon     string            `json:"favicon,omitempty"`
+	Author      *JSONAuthor       `json:"author,omitempty"` // Deprecated, keep for compatibility
+	Authors     []*JSONAuthor     `json:"authors,omitempty"`
+	Language    string            `json:"language,omitempty"`
+	Expired     bool              `json:"expired,omitempty"`
+	Hubs        []*JSONHub        `json:"hubs,omitempty"`
+	Items       []*JSONItem       `json:"items,omitempty"`
+	Extensions  []*JSONExtensions `json:"_yblog,omitempty"`
 }
 
 // JSON is used to convert a generic Feed to a JSONFeed.
@@ -138,6 +145,7 @@ func (f *JSON) JSONFeed() *JSONFeed {
 		Version:     jsonFeedVersion,
 		Title:       f.Title,
 		Description: f.Description,
+		Language:    f.Language,
 	}
 
 	if f.Link != nil {
