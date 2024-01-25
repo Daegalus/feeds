@@ -181,16 +181,17 @@ var testRssFeedXML = RssFeedXml{
 }
 
 var testAtomFeedXML = AtomFeed{
-	XMLName:  xml.Name{Space: "", Local: "feed"},
-	Xmlns:    "",
-	Title:    "Lorem ipsum feed for an interval of 1 minutes",
-	Id:       "",
-	Updated:  "",
-	Category: "",
-	Icon:     "",
-	Logo:     "",
-	Rights:   "",
-	Subtitle: "",
+	XMLName:   xml.Name{Space: "", Local: "feed"},
+	Xmlns:     "",
+	Title:     "Lorem ipsum feed for an interval of 1 minutes",
+	Id:        "",
+	Updated:   "",
+	Category:  "",
+	Icon:      "",
+	Logo:      "",
+	Rights:    "",
+	Subtitle:  "",
+	Generator: "RSS for Node",
 	Link: &AtomLink{
 		XMLName: xml.Name{Space: "", Local: "link"},
 		Href:    "",

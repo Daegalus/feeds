@@ -144,6 +144,7 @@ func (r *Rss) RssFeed() *RssFeed {
 		Title:          r.Title,
 		Link:           r.Link.Href,
 		Description:    r.Description,
+		Language:       r.Language,
 		ManagingEditor: author,
 		PubDate:        pub,
 		LastBuildDate:  build,

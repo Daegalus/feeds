@@ -68,6 +68,7 @@ type AtomLink struct {
 
 type AtomFeed struct {
 	XMLName     xml.Name `xml:"feed"`
+	XMLLang     string   `xml:"xml:lang,attr,omitempty"`
 	Xmlns       string   `xml:"xmlns,attr"`
 	Title       string   `xml:"title"`   // required
 	Id          string   `xml:"id"`      // required
@@ -81,6 +82,7 @@ type AtomFeed struct {
 	Author      *AtomAuthor `xml:"author,omitempty"`
 	Contributor *AtomContributor
 	Entries     []*AtomEntry `xml:"entry"`
+	Generator   string       `xml:"generator,omitempty"`
 }
 
 type Atom struct {
@@ -144,13 +146,15 @@ func newAtomEntry(i *Item) *AtomEntry {
 func (a *Atom) AtomFeed() *AtomFeed {
 	updated := anyTimeFormat(time.RFC3339, a.Updated, a.Created)
 	feed := &AtomFeed{
-		Xmlns:    ns,
-		Title:    a.Title,
-		Link:     &AtomLink{Href: a.Link.Href, Rel: a.Link.Rel},
-		Subtitle: a.Description,
-		Id:       a.Link.Href,
-		Updated:  updated,
-		Rights:   a.Copyright,
+		Xmlns:     ns,
+		XMLLang:   a.Language,
+		Title:     a.Title,
+		Link:      &AtomLink{Href: a.Link.Href, Rel: a.Link.Rel},
+		Subtitle:  a.Description,
+		Id:        a.Link.Href,
+		Updated:   updated,
+		Rights:    a.Copyright,
+		Generator: a.Generator,
 	}
 	if a.Author != nil {
 		feed.Author = &AtomAuthor{AtomPerson: AtomPerson{Name: a.Author.Name, Email: a.Author.Email}}
